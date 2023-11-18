@@ -1,0 +1,179 @@
+// 1 Завдання
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        for (int i = 2; i <= 20; i += 2)
+        {
+            Console.WriteLine(i);
+        }
+    }
+}
+
+
+//2 Завдання
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int sum = 0;
+        for (int i = 1; i <= 100; i++)
+        {
+            sum += i;
+        }
+
+        Console.WriteLine("Сума чисел від 1 до 100: " + sum);
+    }
+}
+
+//3 Завдання
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введіть число: ");
+        int num = int.Parse(Console.ReadLine());
+
+        for (int i = 1; i <= 10; i++)
+        {
+            Console.WriteLine($"{num} * {i} = {num * i}");
+        }
+    }
+}
+
+// 4 Завдання
+
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введіть число: ");
+        int num = int.Parse(Console.ReadLine());
+
+        long factorial = 1;
+        for (int i = 1; i <= num; i++)
+        {
+            factorial *= i;
+        }
+
+        Console.WriteLine($"Факторіал {num} = {factorial}");
+    }
+}
+
+
+// 5 Завдання 
+
+using System;
+
+class Program
+{
+    static bool IsPrime(int number)
+    {
+        if (number < 2) return false;
+        for (int i = 2; i <= Math.Sqrt(number); i++)
+        {
+            if (number % i == 0) return false;
+        }
+        return true;
+    }
+
+    static void Main()
+    {
+        int sum = 0;
+        for (int i = 2; i <= 50; i++)
+        {
+            if (IsPrime(i))
+            {
+                sum += i;
+            }
+        }
+
+        Console.WriteLine("Сума простих чисел від 1 до 50: " + sum);
+    }
+}
+
+// 6 Завдання
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введіть число: ");
+        int num = int.Parse(Console.ReadLine());
+
+        string binaryNum = Convert.ToString(num, 2);
+        Console.WriteLine($"Двійкове представлення {num}: {binaryNum}");
+    }
+}
+
+// 7 Завдання
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Введіть число: ");
+        int limit = int.Parse(Console.ReadLine());
+
+        int a = 0, b = 1, fibSum = 0, count = 0;
+
+        while (a < limit)
+        {
+            fibSum += a;
+            int temp = a;
+            a = b;
+            b = temp + b;
+            count++;
+        }
+
+        Console.WriteLine($"Сума чисел Фібоначчі менше {limit}: {fibSum}");
+        Console.WriteLine($"Кількість елементів: {count}");
+    }
+}
+
+// 8 Завдання
+
+using System;
+
+class Program
+{
+    static int GCD(int a, int b)
+    {
+        while (b != 0)
+        {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+
+    static void Main()
+    {
+        Console.Write("Введіть перше число: ");
+        int num1 = int.Parse(Console.ReadLine());
+
+        Console.Write("Введіть друге число: ");
+        int num2 = int.Parse(Console.ReadLine());
+
+        int resultGCD = GCD(num1, num2);
+
+        Console.WriteLine($"НСД для {num1} і {num2} = {resultGCD}");
+    }
+}
