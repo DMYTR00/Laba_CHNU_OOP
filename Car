@@ -1,37 +1,109 @@
-namespace Лабораторна_3
+using System;
+
+class Car
 {
-    internal class Program
+    public string Name { get; set; }
+    public string Color { get; set; }
+    public double Price { get; set; }
+    public const string CompanyName = "XYZ Motors";
+
+    public Car()
     {
-        static void Main(string[] args)
+        // Конструктор за замовчуванням
+    }
+
+    public Car(string name, string color, double price)
+    {
+        Name = name;
+        Color = color;
+        Price = price;
+    }
+
+    public void Input()
+    {
+        Console.Write("Введіть назву авто: ");
+        Name = Console.ReadLine();
+
+        Console.Write("Введіть колір авто: ");
+        Color = Console.ReadLine();
+
+        Console.Write("Введіть ціну авто: ");
+        Price = Convert.ToDouble(Console.ReadLine());
+    }
+
+    public void Print()
+    {
+        Console.WriteLine($"Назва: {Name}, Колір: {Color}, Ціна: {Price:C}, Виробник: {CompanyName}");
+    }
+
+    public void ChangePrice(double x)
+    {
+        Price = Price * (1 - x / 100);
+    }
+
+    public void ChangeColor(string newColor)
+    {
+        if (Color.ToLower() == "white")
         {
-            Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.InputEncoding = System.Text.Encoding.Unicode;
+            Color = newColor;
+            Console.WriteLine($"Авто {Name} перефарбовано у {Color}.");
+        }
+        else
+        {
+            Console.WriteLine($"Авто {Name} не потрібно фарбувати.");
+        }
+    }
 
-            Console.WriteLine("Натисніть будь-яку кнопку, для того, щоб вивести дані на екран");
-            Console.ReadKey();
+    public string PrintInfo()
+    {
+        return $"Назва: {Name}, Колір: {Color}, Ціна: {Price:C}, Виробник: {CompanyName}";
+    }
+}
 
-            //Cars
-            Car car1 = new Car("Volkswagen", "Gray", 7000);
-            Car car2 = new Car("Nissan", "Black", 10000);
-            Car car3 = new Car("Toyota", "Blue", 15000);
+class Program
+{
+    static void Main()
+    {
+        Car[] cars = new Car[3];
 
-            car1.Print();
-            car1.ChangePrice(10);
-            car1.Print();
-
-            car2.Print();
-            car2.ChangePrice(10);
-            car2.Print();
-
-            car3.Print();
-            car3.ChangePrice(10);
-            car3.Print();
-
-            Console.WriteLine(car1 == car2);
-            Console.WriteLine(car2 == car3);
-
-            Console.ReadKey();
+        for (int i = 0; i < cars.Length; i++)
+        {
+            cars[i] = new Car();
+            cars[i].Input();
         }
 
+        Console.WriteLine("\nДані про авто до зміни ціни:");
+
+        foreach (var car in cars)
+        {
+            car.Print();
+        }
+
+        Console.WriteLine("\nЗміна ціни на 10%:");
+
+        foreach (var car in cars)
+        {
+            car.ChangePrice(10);
+        }
+
+        foreach (var car in cars)
+        {
+            car.Print();
+        }
+
+        Console.WriteLine("\nВведіть новий колір для авто з кольором white:");
+        string newColor = Console.ReadLine();
+
+        foreach (var car in cars)
+        {
+            car.ChangeColor(newColor);
+        }
+
+        Console.WriteLine("\nІнформація про авто після змін:");
+
+        foreach (var car in cars)
+        {
+            Console.WriteLine(car.PrintInfo());
+        }
     }
 }
