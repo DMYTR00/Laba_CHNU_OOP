@@ -1,0 +1,130 @@
+Одновимірні масиви
+1 Завдання
+public double CalculateAverage(int[] array)
+{
+    if (array.Length == 0)
+        return 0;
+
+    double sum = 0;
+    foreach (int num in array)
+    {
+        sum += num;
+    }
+
+    return sum / array.Length;
+}
+
+2 Завдання
+public bool IsPalindrome(int[] array)
+{
+    int left = 0;
+    int right = array.Length - 1;
+
+    while (left < right)
+    {
+        if (array[left] != array[right])
+            return false;
+
+        left++;
+        right--;
+    }
+
+    return true;
+}
+
+3 Завдання
+public void PrintEvenNumbers(int[] array)
+{
+    foreach (int num in array)
+    {
+        if (num % 2 == 0)
+            Console.WriteLine(num);
+    }
+}
+
+4 Завдання
+public int SumOfPositiveNumbers(int[] array)
+{
+    int sum = 0;
+
+    foreach (int num in array)
+    {
+        if (num > 0)
+            sum += num;
+    }
+
+    return sum;
+}
+
+5 Завдання
+public int FindIndexOfElement(int[] array, int element)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        if (array[i] == element)
+            return i;
+    }
+
+    return -1; // якщо елемент не знайдено
+}
+
+6 Завдання 
+public int ProductOfNegativeNumbers(int[] array)
+{
+    int product = 1;
+
+    foreach (int num in array)
+    {
+        if (num < 0)
+            product *= num;
+    }
+
+    return product;
+}
+
+Багатовимірні масиви
+1 Завдання
+public int SumOfMainDiagonal(int[,] matrix)
+{
+    int sum = 0;
+    int size = matrix.GetLength(0);
+
+    for (int i = 0; i < size; i++)
+    {
+        sum += matrix[i, i];
+    }
+
+    return sum;
+}
+
+2 Завдання
+public int ProductOfColumn(int[,] matrix, int column)
+{
+    int product = 1;
+    int rows = matrix.GetLength(0);
+
+    for (int i = 0; i < rows; i++)
+    {
+        product *= matrix[i, column];
+    }
+
+    return product;
+}
+
+3 Завдання
+public int[,] RotateMatrixCounterClockwise(int[,] matrix)
+{
+    int size = matrix.GetLength(0);
+    int[,] rotatedMatrix = new int[size, size];
+
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
+            rotatedMatrix[size - 1 - j, i] = matrix[i, j];
+        }
+    }
+
+    return rotatedMatrix;
+}
+
