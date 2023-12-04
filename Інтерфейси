@@ -1,0 +1,294 @@
+1.1. Завдання: Керування автопарком
+using System;
+
+// Інтерфейс для транспортних засобів
+public interface IVehicle
+{
+    void Start();
+    void Stop();
+    void Drive();
+}
+
+// Базовий клас для транспортних засобів
+public abstract class Vehicle : IVehicle
+{
+    public string Brand { get; set; }
+    public string Model { get; set; }
+
+    public Vehicle(string brand, string model)
+    {
+        Brand = brand;
+        Model = model;
+    }
+
+    public abstract void SpecialFeature(); // Абстрактний метод для специфічних властивостей транспортного засобу
+
+    public void Start()
+    {
+        Console.WriteLine($"{Brand} {Model} is starting.");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine($"{Brand} {Model} is stopping.");
+    }
+
+    public void Drive()
+    {
+        Console.WriteLine($"{Brand} {Model} is moving.");
+    }
+}
+
+// Клас для автомобілів
+public class Car : Vehicle
+{
+    public int NumberOfDoors { get; set; }
+
+    public Car(string brand, string model, int doors) : base(brand, model)
+    {
+        NumberOfDoors = doors;
+    }
+
+    public override void SpecialFeature()
+    {
+        Console.WriteLine($"This car has {NumberOfDoors} doors.");
+    }
+}
+
+// Клас для мотоциклів
+public class Motorcycle : Vehicle
+{
+    public bool HasSideCar { get; set; }
+
+    public Motorcycle(string brand, string model, bool sideCar) : base(brand, model)
+    {
+        HasSideCar = sideCar;
+    }
+
+    public override void SpecialFeature()
+    {
+        if (HasSideCar)
+            Console.WriteLine("This motorcycle has a sidecar.");
+        else
+            Console.WriteLine("This motorcycle does not have a sidecar.");
+    }
+}
+
+// Клас для вантажівок
+public class Truck : Vehicle
+{
+    public double LoadCapacity { get; set; }
+
+    public Truck(string brand, string model, double capacity) : base(brand, model)
+    {
+        LoadCapacity = capacity;
+    }
+
+    public override void SpecialFeature()
+    {
+        Console.WriteLine($"This truck has a load capacity of {LoadCapacity} tons.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Car myCar = new Car("Toyota", "Camry", 4);
+        Motorcycle myMotorcycle = new Motorcycle("Harley-Davidson", "Sportster", false);
+        Truck myTruck = new Truck("Volvo", "VNL", 15.5);
+
+        myCar.Start();
+        myCar.Drive();
+        myCar.Stop();
+        myCar.SpecialFeature();
+
+        Console.WriteLine();
+
+        myMotorcycle.Start();
+        myMotorcycle.Drive();
+        myMotorcycle.Stop();
+        myMotorcycle.SpecialFeature();
+
+        Console.WriteLine();
+
+        myTruck.Start();
+        myTruck.Drive();
+        myTruck.Stop();
+        myTruck.SpecialFeature();
+    }
+}
+
+
+2.2. Завдання: Музичний програвач
+using System;
+
+// Інтерфейс для відтворення музичних треків
+public interface IPlayable
+{
+    void Play();
+    void Pause();
+    void Stop();
+}
+
+// Інтерфейс для запису музичних треків
+public interface IRecordable
+{
+    void Record();
+}
+
+// Клас музичного треку, який реалізує обидва інтерфейси
+public class MusicTrack : IPlayable, IRecordable
+{
+    public string Title { get; set; }
+    public string Artist { get; set; }
+    public double Duration { get; set; }
+
+    public MusicTrack(string title, string artist, double duration)
+    {
+        Title = title;
+        Artist = artist;
+        Duration = duration;
+    }
+
+    public void Play()
+    {
+        Console.WriteLine($"Playing: {Title} by {Artist} ({Duration} seconds)");
+    }
+
+    public void Pause()
+    {
+        Console.WriteLine($"Pausing: {Title}");
+    }
+
+    public void Stop()
+    {
+        Console.WriteLine($"Stopping: {Title}");
+    }
+
+    public void Record()
+    {
+        Console.WriteLine($"Recording: {Title} by {Artist} ({Duration} seconds)");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Створення об'єкту музичного треку
+        MusicTrack myTrack = new MusicTrack("Song Title", "Artist Name", 180);
+
+        // Виклик методів для відтворення
+        myTrack.Play();
+        myTrack.Pause();
+        myTrack.Stop();
+
+        Console.WriteLine();
+
+        // Виклик методу для запису
+        myTrack.Record();
+    }
+}
+
+
+3. Завдання: Електронний пристрій інтернет-магазину
+using System;
+
+// Інтерфейс для продукту
+public interface IProduct
+{
+    void DisplayInfo();
+}
+
+// Інтерфейс для можливості додавання продукту до кошика
+public interface IShoppable
+{
+    void AddToCart();
+}
+
+// Базовий клас для електронних пристроїв
+public class ElectronicDevice : IProduct
+{
+    public string DeviceName { get; set; }
+    public string Manufacturer { get; set; }
+    public double Price { get; set; }
+
+    public ElectronicDevice(string deviceName, string manufacturer, double price)
+    {
+        DeviceName = deviceName;
+        Manufacturer = manufacturer;
+        Price = price;
+    }
+
+    public virtual void DisplayInfo()
+    {
+        Console.WriteLine($"Device: {DeviceName}, Manufacturer: {Manufacturer}, Price: ${Price}");
+    }
+}
+
+// Клас для смартфонів
+public class Smartphone : ElectronicDevice, IShoppable
+{
+    public string OperatingSystem { get; set; }
+
+    public Smartphone(string deviceName, string manufacturer, double price, string operatingSystem)
+        : base(deviceName, manufacturer, price)
+    {
+        OperatingSystem = operatingSystem;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Operating System: {OperatingSystem}");
+    }
+
+    public void AddToCart()
+    {
+        Console.WriteLine($"Adding {DeviceName} to the shopping cart.");
+    }
+}
+
+// Клас для ноутбуків
+public class Laptop : ElectronicDevice, IShoppable
+{
+    public string Processor { get; set; }
+
+    public Laptop(string deviceName, string manufacturer, double price, string processor)
+        : base(deviceName, manufacturer, price)
+    {
+        Processor = processor;
+    }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($"Processor: {Processor}");
+    }
+
+    public void AddToCart()
+    {
+        Console.WriteLine($"Adding {DeviceName} to the shopping cart.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Створення об'єктів різних електронних пристроїв
+        Smartphone myPhone = new Smartphone("iPhone 13", "Apple", 999.99, "iOS");
+        Laptop myLaptop = new Laptop("Dell XPS 13", "Dell", 1299.99, "Intel Core i7");
+
+        // Виклик методів для відображення інформації
+        myPhone.DisplayInfo();
+        myLaptop.DisplayInfo();
+
+        Console.WriteLine();
+
+        // Виклик методів для додавання до кошика
+        (myPhone as IShoppable)?.AddToCart();
+        (myLaptop as IShoppable)?.AddToCart();
+    }
+}
