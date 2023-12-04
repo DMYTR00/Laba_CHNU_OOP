@@ -1,0 +1,108 @@
+1 Завдання
+public static double Calculate(double operand1, double operand2, char operation)
+{
+    switch (operation)
+    {
+        case '+':
+            return operand1 + operand2;
+        case '-':
+            return operand1 - operand2;
+        case '*':
+            return operand1 * operand2;
+        case '/':
+            if (operand2 != 0)
+                return operand1 / operand2;
+            else
+                throw new ArgumentException("Division by zero is not allowed.");
+        default:
+            throw new ArgumentException("Invalid operation.");
+    }
+}
+
+2 Завдання
+public static bool IsPrime(int number)
+{
+    if (number < 2)
+        return false;
+
+    for (int i = 2; i <= Math.Sqrt(number); i++)
+    {
+        if (number % i == 0)
+            return false;
+    }
+
+    return true;
+}
+
+3 Завдання
+public static double ConvertToDollars(double amountInUAH)
+{
+    const double exchangeRate = 36.56;
+
+    if (amountInUAH < 0)
+    {
+        throw new ArgumentException("Invalid input value.");
+    }
+
+    return amountInUAH / exchangeRate;
+}
+double amountInUAH = 1000.0; // Сума в гривнях
+
+double amountInUSD = ConvertToDollars(amountInUAH);
+Console.WriteLine($"{amountInUAH} UAH is approximately {amountInUSD:F2} USD.");
+
+4 Завдання
+public static (int, int) FindMinMax(int[] array)
+{
+    if (array.Length == 0)
+        throw new ArgumentException("Array is empty.");
+
+    int min = array[0];
+    int max = array[0];
+
+    foreach (int num in array)
+    {
+        if (num < min)
+            min = num;
+        if (num > max)
+            max = num;
+    }
+
+    return (min, max);
+}
+
+5 Завдання
+public static (int, int) CountVowelsAndConsonants(string input)
+{
+    int vowelCount = 0;
+    int consonantCount = 0;
+
+    foreach (char c in input.ToLower())
+    {
+        if (char.IsLetter(c))
+        {
+            if ("aeiou".Contains(c))
+                vowelCount++;
+            else
+                consonantCount++;
+        }
+    }
+
+    return (vowelCount, consonantCount);
+}
+
+6 Завдання
+public static double CalculateArea(double radius)
+{
+    return Math.PI * Math.Pow(radius, 2);
+}
+
+public static double CalculateArea(double length, double width)
+{
+    return length * width;
+}
+
+public static double CalculateVolume(double sideLength)
+{
+    return Math.Pow(sideLength, 3);
+}
