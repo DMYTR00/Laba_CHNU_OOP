@@ -1,0 +1,207 @@
+1. Фігура
+using System;
+
+class Figure
+{
+    public virtual double CalculateArea()
+    {
+        return 0;
+    }
+
+    public virtual double CalculatePerimeter()
+    {
+        return 0;
+    }
+}
+
+class Circle : Figure
+{
+    public double Radius { get; set; }
+
+    public Circle(double radius)
+    {
+        Radius = radius;
+    }
+
+    public override double CalculateArea()
+    {
+        return Math.PI * Radius * Radius;
+    }
+
+    public override double CalculatePerimeter()
+    {
+        return 2 * Math.PI * Radius;
+    }
+}
+
+class Rectangle : Figure
+{
+    public double Width { get; set; }
+    public double Height { get; set; }
+
+    public Rectangle(double width, double height)
+    {
+        Width = width;
+        Height = height;
+    }
+
+    public override double CalculateArea()
+    {
+        return Width * Height;
+    }
+
+    public override double CalculatePerimeter()
+    {
+        return 2 * (Width + Height);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Circle circle = new Circle(5);
+        Rectangle rectangle = new Rectangle(4, 6);
+
+        Console.WriteLine($"Площа та периметр кола:");
+        Console.WriteLine($"Площа: {circle.CalculateArea()}");
+        Console.WriteLine($"Периметр: {circle.CalculatePerimeter()}");
+
+        Console.WriteLine($"\nПлоща та периметр прямокутника:");
+        Console.WriteLine($"Площа: {rectangle.CalculateArea()}");
+        Console.WriteLine($"Периметр: {rectangle.CalculatePerimeter()}");
+    }
+}
+
+2. Фрукт
+using System;
+
+class Fruit
+{
+    public string Name { get; set; }
+
+    public Fruit(string name)
+    {
+        Name = name;
+    }
+}
+
+class Apple : Fruit
+{
+    public string Variety { get; set; }
+    public string Color { get; set; }
+
+    public Apple(string variety, string color) : base("Apple")
+    {
+        Variety = variety;
+        Color = color;
+    }
+}
+
+class Pear : Fruit
+{
+    public string Color { get; set; }
+
+    public Pear(string color) : base("Pear")
+    {
+        Color = color;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Apple apple = new Apple("Granny Smith", "Green");
+        Pear pear = new Pear("Yellow");
+
+        Console.WriteLine($"Інформація про яблуко: {apple.Name}, Сорт: {apple.Variety}, Колір: {apple.Color}");
+        Console.WriteLine($"Інформація про грушу: {pear.Name}, Колір: {pear.Color}");
+    }
+}
+
+3. Тварини
+using System;
+
+abstract class Animal
+{
+    public float Weight { get; set; }
+    public string Color { get; set; }
+
+    public Animal(string color, float weight)
+    {
+        Color = color;
+        Weight = weight;
+    }
+
+    public abstract string MakeSound();
+}
+
+abstract class AnimalWithTail : Animal
+{
+    public float TailLength { get; set; }
+
+    public AnimalWithTail(string color, float weight, float tailLength) : base(color, weight)
+    {
+        TailLength = tailLength;
+    }
+}
+
+class Cat : AnimalWithTail
+{
+    public Cat(string color, float weight, float tailLength) : base(color, weight, tailLength)
+    {
+    }
+
+    private string Purr()
+    {
+        return "purrrrrrrr";
+    }
+
+    private string Meow()
+    {
+        return "Meow";
+    }
+
+    public override string MakeSound()
+    {
+        return Purr() + Meow();
+    }
+
+    public override string ToString()
+    {
+        return $"This is a Cat, Color = {Color}, Weight = {Weight}, TailLength = {TailLength}";
+    }
+}
+
+class Dog : AnimalWithTail
+{
+    public Dog(string color, float weight, float tailLength) : base(color, weight, tailLength)
+    {
+    }
+
+    public override string MakeSound()
+    {
+        return "Woof";
+    }
+
+    public override string ToString()
+    {
+        return $"This is a Dog, Color = {Color}, Weight = {Weight}, TailLength = {TailLength}";
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Cat cat = new Cat("Gray", 5.2f, 12.5f);
+        Dog dog = new Dog("Brown", 10.5f, 15.0f);
+
+        Console.WriteLine(cat.MakeSound());
+        Console.WriteLine(dog.MakeSound());
+
+        Console.WriteLine(cat);
+        Console.WriteLine(dog);
+    }
+}
