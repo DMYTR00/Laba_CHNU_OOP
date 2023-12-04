@@ -1,0 +1,126 @@
+using System;
+
+abstract class Shape
+{
+    private string name;
+
+    public string Name
+    {
+        get { return name; }
+    }
+
+    public Shape(string name)
+    {
+        this.name = name;
+    }
+
+    public abstract double Area();
+    public abstract double Perimeter();
+}
+
+class Circle : Shape
+{
+    private double radius;
+
+    public double Radius
+    {
+        get { return radius; }
+        set
+        {
+            if (value <= 0)
+            {
+                throw new ArgumentException("Radius must be greater than zero.");
+            }
+            radius = value;
+        }
+    }
+
+    public Circle(double radius) : base("Circle")
+    {
+        Radius = radius;
+    }
+
+    public override double Area()
+    {
+        return Math.PI * Math.Pow(Radius, 2);
+    }
+
+    public override double Perimeter()
+    {
+        return 2 * Math.PI * Radius;
+    }
+}
+
+class Square : Shape
+{
+    private double side;
+
+    public double Side
+    {
+        get { return side; }
+        set
+        {
+            if (value <= 0)
+            {
+                throw new ArgumentException("Side must be greater than zero.");
+            }
+            side = value;
+        }
+    }
+
+    public Square(double side) : base("Square")
+    {
+        Side = side;
+    }
+
+    public override double Area()
+    {
+        return Math.Pow(Side, 2);
+    }
+
+    public override double Perimeter()
+    {
+        return 4 * Side;
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Circle circle1 = new Circle(5);
+        Circle circle2 = new Circle(7);
+
+        Square square1 = new Square(4);
+        Square square2 = new Square(6);
+
+        DisplayInfo(circle1);
+        DisplayInfo(circle2);
+        DisplayInfo(square1);
+        DisplayInfo(square2);
+
+        Console.WriteLine($"\nLargest Circle Area: {LargestArea(circle1, circle2)}");
+        Console.WriteLine($"Largest Square Area: {LargestArea(square1, square2)}");
+    }
+
+    static void DisplayInfo(Shape shape)
+    {
+        Console.WriteLine($"{shape.Name}:");
+        Console.WriteLine($"Area: {shape.Area()}");
+        Console.WriteLine($"Perimeter: {shape.Perimeter()}\n");
+    }
+
+    static double LargestArea(params Shape[] shapes)
+    {
+        double largestArea = 0;
+        foreach (var shape in shapes)
+        {
+            double area = shape.Area();
+            if (area > largestArea)
+            {
+                largestArea = area;
+            }
+        }
+        return largestArea;
+    }
+}
