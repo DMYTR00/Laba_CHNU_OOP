@@ -1,0 +1,242 @@
+Завдання: Керування стеком документів
+using System;
+using System.Collections.Generic;
+
+class Document
+{
+    public int DocumentId { get; set; }
+    public string Content { get; set; }
+
+    public override string ToString()
+    {
+        return $"Document ID: {DocumentId}, Content: {Content}";
+    }
+}
+
+class DocumentManager
+{
+    private Stack<Document> documentStack = new Stack<Document>();
+
+    public void AddDocument(Document document)
+    {
+        documentStack.Push(document);
+        Console.WriteLine($"Document {document.DocumentId} added to the stack.");
+    }
+
+    public void RemoveTopDocument()
+    {
+        if (documentStack.Count > 0)
+        {
+            Document removedDocument = documentStack.Pop();
+            Console.WriteLine($"Removed top document: {removedDocument}");
+        }
+        else
+        {
+            Console.WriteLine("Document stack is empty.");
+        }
+    }
+
+    public Document PeekTopDocument()
+    {
+        if (documentStack.Count > 0)
+        {
+            return documentStack.Peek();
+        }
+        else
+        {
+            Console.WriteLine("Document stack is empty.");
+            return null;
+        }
+    }
+
+    public void DisplayTopDocumentInfo()
+    {
+        Document topDocument = PeekTopDocument();
+        if (topDocument != null)
+        {
+            Console.WriteLine($"Top document info: {topDocument}");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        DocumentManager documentManager = new DocumentManager();
+
+        Document doc1 = new Document { DocumentId = 1, Content = "Document 1 Content" };
+        Document doc2 = new Document { DocumentId = 2, Content = "Document 2 Content" };
+        Document doc3 = new Document { DocumentId = 3, Content = "Document 3 Content" };
+
+        documentManager.AddDocument(doc1);
+        documentManager.AddDocument(doc2);
+        documentManager.AddDocument(doc3);
+
+        documentManager.DisplayTopDocumentInfo();
+        documentManager.RemoveTopDocument();
+        documentManager.DisplayTopDocumentInfo();
+    }
+}
+
+Завдання: Керування чергою замовлень
+using System;
+using System.Collections.Generic;
+
+class Order
+{
+    public int OrderNumber { get; set; }
+    public string Item { get; set; }
+
+    public override string ToString()
+    {
+        return $"Order Number: {OrderNumber}, Item: {Item}";
+    }
+}
+
+class OrderManager
+{
+    private Queue<Order> orderQueue = new Queue<Order>();
+
+    public void AddOrder(Order order)
+    {
+        orderQueue.Enqueue(order);
+        Console.WriteLine($"Order {order.OrderNumber} added to the queue.");
+    }
+
+    public void RemoveOldestOrder()
+    {
+        if (orderQueue.Count > 0)
+        {
+            Order removedOrder = orderQueue.Dequeue();
+            Console.WriteLine($"Removed oldest order: {removedOrder}");
+        }
+        else
+        {
+            Console.WriteLine("Order queue is empty.");
+        }
+    }
+
+    public Order PeekOldestOrder()
+    {
+        if (orderQueue.Count > 0)
+        {
+            return orderQueue.Peek();
+        }
+        else
+        {
+            Console.WriteLine("Order queue is empty.");
+            return null;
+        }
+    }
+
+    public void DisplayOldestOrderInfo()
+    {
+        Order oldestOrder = PeekOldestOrder();
+        if (oldestOrder != null)
+        {
+            Console.WriteLine($"Oldest order info: {oldestOrder}");
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        OrderManager orderManager = new OrderManager();
+
+        Order order1 = new Order { OrderNumber = 1, Item = "Burger" };
+        Order order2 = new Order { OrderNumber = 2, Item = "Pizza" };
+        Order order3 = new Order { OrderNumber = 3, Item = "Pasta" };
+
+        orderManager.AddOrder(order1);
+        orderManager.AddOrder(order2);
+        orderManager.AddOrder(order3);
+
+        orderManager.DisplayOldestOrderInfo();
+        orderManager.RemoveOldestOrder();
+        orderManager.DisplayOldestOrderInfo();
+    }
+}
+
+Завдання: Магазин книг зі словником книг
+using System;
+using System.Collections.Generic;
+
+class Book
+{
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public double Price { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Title} by {Author}, Price: {Price:C}";
+    }
+}
+
+class BookStoreManager
+{
+    private Dictionary<int, Book> bookCatalog = new Dictionary<int, Book>();
+    private int nextBookId = 1;
+
+    public void AddBook(Book book)
+    {
+        bookCatalog.Add(nextBookId, book);
+        Console.WriteLine($"Book added to the catalog. Book ID: {nextBookId}");
+        nextBookId++;
+    }
+
+    public void RemoveBook(int bookId)
+    {
+        if (bookCatalog.ContainsKey(bookId))
+        {
+            Book removedBook = bookCatalog[bookId];
+            bookCatalog.Remove(bookId);
+            Console.WriteLine($"Book removed from the catalog: {removedBook}");
+        }
+        else
+        {
+            Console.WriteLine($"Book with ID {bookId} not found in the catalog.");
+        }
+    }
+
+    public Book GetBookInfo(int bookId)
+    {
+        if (bookCatalog.ContainsKey(bookId))
+        {
+            return bookCatalog[bookId];
+        }
+        else
+        {
+            Console.WriteLine($"Book with ID {bookId} not found in the catalog.");
+            return null;
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        BookStoreManager bookStoreManager = new BookStoreManager();
+
+        Book book1 = new Book { Title = "The Catcher in the Rye", Author = "J.D. Salinger", Price = 15.99 };
+        Book book2 = new Book { Title = "To Kill a Mockingbird", Author = "Harper Lee", Price = 12.50 };
+
+        bookStoreManager.AddBook(book1);
+        bookStoreManager.AddBook(book2);
+
+        int bookIdToRemove = 1;
+        bookStoreManager.RemoveBook(bookIdToRemove);
+
+        int bookIdToDisplay = 2;
+        Book bookInfo = bookStoreManager.GetBookInfo(bookIdToDisplay);
+
+        if (bookInfo != null)
+        {
+            Console.WriteLine($"Book information: {bookInfo}");
+        }
+    }
+}
