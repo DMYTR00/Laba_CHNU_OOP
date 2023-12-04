@@ -1,0 +1,44 @@
+using System;
+
+// Інтерфейс для товарів
+public interface IProduct
+{
+    string Name { get; set; }
+    double Price { get; set; }
+
+    double CalculateDiscount();
+}
+
+// Абстрактний клас для базового функціоналу товару
+public abstract class Product : IProduct
+{
+    public string Name { get; set; }
+    public double Price { get; set; }
+
+    // Абстрактний метод для обчислення вартості товару
+    public abstract double CalculateCost();
+
+    // Реалізація методу інтерфейсу для обчислення знижки
+    public double CalculateDiscount()
+    {
+        // Ваша логіка обчислення знижки тут
+        // Приклад: 10% знижки
+        return 0.1 * Price;
+    }
+}
+
+
+
+// Клас для книг
+public class Book : Product
+{
+    public int Pages { get; set; }
+
+    // Реалізація абстрактного методу для обчислення вартості книги
+    public override double CalculateCost()
+    {
+        // Ваша логіка обчислення вартості книги тут
+        // Приклад: вартість за сторінку + 0.5 * знижка
+        return Pages * 0.1 + 0.5 * CalculateDiscount();
+    }
+}
